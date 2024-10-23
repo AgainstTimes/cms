@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.login .el-form{
+    width: 360px;
+    height: 230px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.login .el-form .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    font-size: 25px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+.login .el-form .el-form-item{
+    width: 300px;
+    margin-left: 30px;
+}
+.login .el-form .el-button{
+    width: 300px;
+
+}
