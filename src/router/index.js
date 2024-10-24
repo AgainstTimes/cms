@@ -1,11 +1,16 @@
-import { createRouter, createWebHashHistory, createWebHistory } from "vue-router"
+import { createRouter, createWebHistory } from "vue-router"
+import {useAdminStore} from "@/stores/admin/admin.js";
 
 const routes = [
     {
         path: "/login", // http://localhost:5173/login
         component: () => import("@/views/admin/login.vue")
     },
-
+    {
+        path: "/admin", // http://localhost:5173/admin
+        component: () => import("@/views/admin/home.vue"),
+        meta: { requiresAuth: true },
+    },
 ]
 
 const router = createRouter({
@@ -14,5 +19,12 @@ const router = createRouter({
     history: createWebHistory(),
     routes
 })
-
+router.beforeEach((to, from, next) => {
+    if (to.meta.requiresAuth && useAdminStore().data.token === "") {
+        console.log("Require authentication :", to.meta.requiresAuth);
+        router.push("/login").then(() => {});
+    } else {
+        next();
+    }
+})
 export default router

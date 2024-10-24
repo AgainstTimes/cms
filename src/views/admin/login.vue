@@ -5,10 +5,15 @@ import {User,Lock} from "@element-plus/icons-vue";
 import {reactive, ref} from "vue";
 import axios from 'axios'
 import {ElMessage} from "element-plus";
+import {useRouter} from "vue-router";
+import {useAdminStore} from "@/stores/admin/admin.js";
+const router = useRouter();
+const  adminStore = useAdminStore();
 const data = reactive({
   name:'',
   password:'',
 })
+
 const rules = {
   name: [
     {required:true,message:'please enter name',trigger:'blur'},
@@ -34,7 +39,10 @@ const login = ()=>{
         return
       }
       let token = res.data.data.token;
-      console.log("token:",token);
+      let [headerBase64,payloadBase64,signBase63] = token.split('.');
+      console.log(JSON.parse(atob(payloadBase64)));
+      adminStore.save(JSON.parse(atob(payloadBase64)).name,token,JSON.parse(atob(payloadBase64)).expireDate)
+      router.push('/admin')
     }).catch(err=>{
       console.log("err:",err)
     })
