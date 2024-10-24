@@ -1,0 +1,103 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+
+}
+
+/* .home .header */
+.home .header {
+    display: flex;
+    height: 55px;
+    background: #393d49;
+}
+
+.home .header .title {
+    display: flex;
+    width: 200px;
+    background: #0c0c0c;
+}
+
+.home .header .title .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+}
+
+.home .header .title .logo i {
+    color: lightslategray;
+    font-size: 30px;
+}
+
+.home .header .title .text {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.home .header .title .text a {
+    color: lightslategray;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.home .header .info {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+}
+
+.home .header .info .admin {
+    display: flex;
+    color: #fff;
+    font-size: 15px;
+}
+
+.home .header .info .admin .name {
+    padding-right: 10px;
+    height: 55px;
+    line-height: 55px;
+    text-align: center;
+}
+
+.home .header .info .admin .name i {
+    color: #FF5722;
+    font-size: 13px;
+}
+
+.home .header .info .admin .exit {
+    width: 90px;
+    height: 55px;
+    line-height: 55px;
+    text-align: center;
+    background: #555c64;
+    cursor: pointer;
+}
+
+/* .home .main */
+.home .main {
+    display: flex;
+    height: calc(100vh - 55px); /* 减去 header 高度 */
+}
+
+.home .main .side {
+    width: 200px;
+    background: #545c64;
+}
+
+.home .main .content {
+    padding: 5px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.home .main .side {
+    width: 210px;
+    background: #2c3e50;
+}
+.home .main .content {
+    padding: 0 30px;
+    flex: 1;
+    overflow-y: auto;
+}

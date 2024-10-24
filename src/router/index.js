@@ -3,6 +3,10 @@ import {useAdminStore} from "@/stores/admin/admin.js";
 
 const routes = [
     {
+        path: "/", // http://localhost:5173/
+        redirect: "/admin",
+    },
+    {
         path: "/login", // http://localhost:5173/login
         component: () => import("@/views/admin/login.vue")
     },
@@ -10,6 +14,20 @@ const routes = [
         path: "/admin", // http://localhost:5173/admin
         component: () => import("@/views/admin/home.vue"),
         meta: { requiresAuth: true },
+        children: [
+            {
+                path: "/administrator/add", // http://localhost:5173/admin/administrator/add
+                component: () => import("@/views/admin/administrator/add.vue")
+            },
+            {
+                path: "/administrator/list", // http://localhost:5173/administrator/list
+                component: () => import("@/views/admin/administrator/list.vue")
+            },
+            {
+                path: "/category/list", // http://localhost:5173/category/list
+                component: () => import("@/views/admin/category/list.vue")
+            },
+        ]
     },
 ]
 

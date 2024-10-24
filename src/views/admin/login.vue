@@ -39,17 +39,14 @@ const login = ()=>{
         return
       }
       let token = res.data.data.token;
-      let [headerBase64,payloadBase64,signBase63] = token.split('.');
+      let [payloadBase64] = token.split('.');
       console.log(JSON.parse(atob(payloadBase64)));
       adminStore.save(JSON.parse(atob(payloadBase64)).name,token,JSON.parse(atob(payloadBase64)).expireDate)
       router.push('/admin')
     }).catch(err=>{
       console.log("err:",err)
     })
-
   })
-
-
 }
 
 </script>
