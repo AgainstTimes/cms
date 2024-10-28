@@ -1,18 +1,25 @@
 <script setup>
-import {reactive} from 'vue'
+import {onMounted, reactive} from 'vue'
 import {House} from "@element-plus/icons-vue";
-
+import {useRoute} from 'vue-router'
+import CategoryAPI from "@/api/CategoryAPI.js";
+import {ElMessage} from "element-plus";
 //数据
 const data = reactive({
-  path: [
-    {id: '1', name: '类别', parent_id: '0', create_time: '2024-03-22'},
-    {id: '2', name: '前端', parent_id: '1', create_time: '2024-03-23'}
-  ],
-  list: [
-    {id: '3', name: 'Vue', parent_id: '2', status: '1', create_time: '2024-03-23'},
-    {id: '4', name: 'ES', parent_id: '2', status: '1', create_time: '2024-03-24'},
-    {id: '5', name: 'JS', parent_id: '2', status: '0', create_time: '2024-03-25'}
-  ]
+  path: [],
+  list: []
+})
+const route = useRoute()
+let parentId = route.query.parent_id
+onMounted(() => {
+  CategoryAPI.getListByParentId(parentId).then(result => {
+    if (!result.status) {
+      ElMessage.error(result.msg)
+      return;
+    }
+    data.path = result.data.path
+    data.list = result.data.list
+  })
 })
 </script>
 
