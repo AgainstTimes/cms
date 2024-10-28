@@ -13,9 +13,7 @@ const Time = {
     },
 
     // 时间相减
-    // let startTime = "2024-04-20 11:30:00"
-    // let endTime = "2024-04-22 12:00:00"
-    // let timeSubResult = TimeDR.timeSub(startTime,endTime)
+
     timeSub(startTime, endTime) {
         let startDate = new Date(startTime)
         let endDate = new Date(endTime)

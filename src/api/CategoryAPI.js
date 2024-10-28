@@ -1,4 +1,4 @@
-import Axios from '@/Utils/Axios.js'
+import Axios from '@/utils/Axios.js'
 
 //获取单条记录
 const getById = (id) => {

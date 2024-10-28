@@ -2,6 +2,7 @@ import {createRouter, createWebHistory} from "vue-router"
 import {useAdminStore} from "@/stores/admin/admin.js";
 import Time from "@/utils/Time.js";
 import {ElMessage} from "element-plus";
+import Local from "@/utils/Local.js";
 const routes = [
     {
         path: "/", // http://localhost:5173/
@@ -59,7 +60,7 @@ router.beforeEach((to, from, next) => {
         //console.log(timeSubResult)
         if(timeSubResult.expire){ //已过期
             ElMessage.error("Login expired, please log in again")
-            LocalDR.remove("admin") //删除 localStorage 中的 key
+            Local.remove("admin") //删除 localStorage 中的 key
             router.push("/login").then(() => {}) //跳转至登录页
         }
         next()

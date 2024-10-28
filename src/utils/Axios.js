@@ -1,12 +1,13 @@
 import axios from 'axios'
 
 const axiosInstance = axios.create({  // axios 实例
+    //baseURL: "http://127.0.0.1:80",
     baseURL: import.meta.env.VITE_API_URL,
     timeout: 5000
 })
 
 const get = (url, data = {}) => {
-    return axiosInstance.get(url, {params: data}).then(response => response.data)
+    return axiosInstance.get(url, { params: data }).then(response => response.data)
 }
 
 const post = (url, data = null) => {
@@ -40,4 +41,5 @@ const postToken = (url, token, data = null) => {
         .then(response => response.data)
 }
 
-export default {get, post, postForm, postFile, postToken}
+export default { get, post, postForm, postFile, postToken }
+

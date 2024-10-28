@@ -18,7 +18,7 @@ import {Files, UserFilled} from "@element-plus/icons-vue";
           <el-menu-item index="/administrator/list">add list</el-menu-item>
         </el-menu-item-group>
       </el-sub-menu>
-      <el-menu-item index="/category/list?parent_id=?">
+      <el-menu-item index="/category/list?parent_id=0">
         <el-icon>
           <Files/>
         </el-icon>
