@@ -14,7 +14,7 @@
 
 .home .header .title {
     display: flex;
-    width: 200px;
+    width: 225px;
     background: #0c0c0c;
 }
 
@@ -100,4 +100,33 @@
     padding: 0 30px;
     flex: 1;
     overflow-y: auto;
+}
+
+/* color */
+.blue {
+    color: #1e9eff;
+}
+
+.green {
+    color: #15baaa;
+}
+
+.orange {
+    color: #feb801;
+}
+
+.red {
+    color: #f75a23;
+}
+
+/* 重写 ElementPlus 默认样式 */
+/* 表格 */
+.el-table {
+    margin-top: 7px;
+    width: 1000px;
+}
+
+/* 面包屑 */
+.el-breadcrumb {
+    margin-bottom: 7px;
 }
