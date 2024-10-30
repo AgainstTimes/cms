@@ -4,7 +4,10 @@ import Axios from '@/utils/Axios.js'
 const getById = (id) => {
     return Axios.get(`/api/category/getById?id=${id}`)
 }
-
+//获取列表 - all
+const getAllById = (id) => {
+    return Axios.get(`/api/category/list?id=${id}`)
+}
 //获取列表
 const getListByParentId = (parent_id) => {
     return Axios.get(`/api/category/getListByParentId?parent_id=${parent_id}`)
@@ -25,4 +28,4 @@ const del = (id) => {
     return Axios.post("/api/category/del",{id: id})
 }
 
-export default { getById,getListByParentId,add,edit,del }
+export default { getById,getListByParentId,getAllById,add,edit,del }

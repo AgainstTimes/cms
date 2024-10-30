@@ -1,29 +1,50 @@
 <script setup>
+import { reactive,onMounted } from 'vue'
+import NavAPI from '@/api/NavAPI'
 
-import {Files, UserFilled} from "@element-plus/icons-vue";
+const data = reactive({
+  list: []
+})
+
+//在组件成功挂载到DOM并完成首次渲染后调用
+onMounted(() => {
+  NavAPI.getAll().then(result => {
+    //console.log(result)
+    if(!result.status){
+      ElMessage.error(result.msg)
+      return
+    }
+
+    data.list = result.data
+  }).catch(err => {
+    console.log("err:", err)
+  })
+})
 </script>
 
 <template>
-  <div class="home">
+  <div class="side">
+
     <el-menu router background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
-      <el-sub-menu index="admin">
-        <template #title>
-          <el-icon>
-            <UserFilled/>
-          </el-icon>
-          Administrator
-        </template>
-        <el-menu-item-group>
-          <el-menu-item index="/administrator/add">add Administrator</el-menu-item>
-          <el-menu-item index="/administrator/list">add list</el-menu-item>
-        </el-menu-item-group>
-      </el-sub-menu>
-      <el-menu-item index="/category/list?parent_id=0">
-        <el-icon>
-          <Files/>
-        </el-icon>
-        Category Management
-      </el-menu-item>
+      <template v-for="item in data.list">
+        <!-- 不包含子菜单, 则为一级菜单 -->
+        <el-menu-item v-if="item.children === null" :index="item.path">
+          <el-icon><component :is="item.icon" /></el-icon> {{ item.name }}
+        </el-menu-item>
+
+        <!-- 包含子菜单, 则为二级菜单 -->
+        <el-sub-menu v-else :index="item.path">
+          <template #title>
+            <el-icon><component :is="item.icon" /></el-icon> {{ item.name }}
+          </template>
+
+          <el-menu-item-group>
+            <template v-for="childrenItem in item.children">
+              <el-menu-item :index="childrenItem.path">{{ childrenItem.name }}</el-menu-item>
+            </template>
+          </el-menu-item-group>
+        </el-sub-menu>
+      </template>
     </el-menu>
   </div>
 </template>

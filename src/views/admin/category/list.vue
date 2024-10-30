@@ -5,6 +5,7 @@ import {useRoute} from "vue-router";
 import {ElMessage,ElMessageBox} from "element-plus";
 import CategoryAPI from '@/api/CategoryAPI'
 import CategoryAdd from "@/components/admin/category/CategoryAdd.vue";
+import CategoryEdit from '@/components/admin/category/CategoryEdit.vue' //导入编辑类别组件
 //数据
 const data = reactive({
   path: [],
@@ -21,7 +22,7 @@ const provideData = reactive({
   level:1,
   parentId,
   pageAdd:false,
-  pageEdit:true,
+  pageEdit:false,
 })
 provide("provideData",provideData)
 const provideFuncGetList = () => {
@@ -30,6 +31,7 @@ const provideFuncGetList = () => {
       ElMessage.error(result.msg)
       return
     }
+    console.log(result.data.list)
     data.path = result.data.path //重置
     data.list = result.data.list
   }).catch(err => {
@@ -57,20 +59,15 @@ watchEffect(() => {
   //在 watchEffect 内部赋值 parentId = route.query.parent_id, Vue会自动追踪 route.query.parent_id 这个响应式依赖
   //当 route.query.parent_id 的值发生变化时, watchEffect 会立即重新执行
   parentId = route.query.parent_id
-  //console.log("parentId:",parentId)
 
   //重新获取列表
   CategoryAPI.getListByParentId(parentId).then(result => {
-    //console.log(result)
-
     if(!result.status){
       ElMessage.error(result.msg)
       return
     }
-
     data.path = result.data.path //重置
     data.list = result.data.list
-
     //更新 provideData
     if(data.path === null){
       provideData.level = 1 //level
@@ -116,17 +113,24 @@ const pageAdd = () => {
   provideData.pageAdd = true
 }
 
+//编辑页
+const pageEdit = (row) => {
+  provideData.id = row.id
+  provideData.pageEdit = true
+}
+
 </script>
 
 <template>
   <CategoryAdd />
+  <CategoryEdit />
   <!-- 面包屑 -->
   <el-breadcrumb separator="/">
-    <el-breadcrumb-item :to="{path:'/category/list', query:{parent_id:0}}">
+    <el-breadcrumb-item :to="{path:'/admin/category/list', query:{parent_id:0}}">
       <el-icon><House /></el-icon>
     </el-breadcrumb-item>
 
-    <el-breadcrumb-item v-for="value in data.path" :to="{path:'/category/list',query:{parent_id:value.id}}" :key="value.id">
+    <el-breadcrumb-item v-for="value in data.path" :to="{path:'/admin/category/list',query:{parent_id:value.id}}" :key="value.id">
       {{ value.name }}
     </el-breadcrumb-item>
   </el-breadcrumb>
@@ -141,7 +145,7 @@ const pageAdd = () => {
     <el-table-column prop="id" label="ID" width="80" />
     <el-table-column prop="name" label="名称">
       <template #default="scope">
-        <router-link :to="{path:'/category/list',query:{parent_id:scope.row.id}}" class="blue">{{ scope.row.name }}</router-link>
+        <router-link :to="{path:'/admin/category/list',query:{parent_id:scope.row.id}}" class="blue">{{ scope.row.name }}</router-link>
       </template>
     </el-table-column>
     <el-table-column prop="status" label="状态" width="80">
@@ -154,7 +158,7 @@ const pageAdd = () => {
 
     <el-table-column label="操作" width="150">
       <template #default="scope">
-        <el-button size="small" type="primary">编辑</el-button>
+        <el-button size="small" type="primary" @click="pageEdit(scope.row)">编辑</el-button>
         <el-button size="small" @click="del(scope.row)">删除</el-button>
       </template>
     </el-table-column>

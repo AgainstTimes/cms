@@ -6,35 +6,57 @@ import Local from "@/utils/Local.js";
 const routes = [
     {
         path: "/", // http://localhost:5173/
-        redirect: "/admin",
+        redirect: "/admin" // 重定向
     },
     {
         path: "/login", // http://localhost:5173/login
+        //component: () => import("../views/admin/login.vue")
         component: () => import("@/views/admin/login.vue")
     },
     {
         path: "/admin", // http://localhost:5173/admin
         component: () => import("@/views/admin/home.vue"),
-        meta: {requiresAuth: true},
+        meta: { requiresAuth: true }, //身份验证
         children: [
+            //管理员
             {
-                path: "/administrator/add", // http://localhost:5173/admin/administrator/add
+                path: "administrator/add", // http://localhost:5173/admin/administrator/add
                 component: () => import("@/views/admin/administrator/add.vue")
             },
             {
-                path: "/administrator/edit", // http://localhost:5173/admin/administrator/edit
+                path: "administrator/edit", // http://localhost:5173/admin/administrator/edit
                 component: () => import("@/views/admin/administrator/edit.vue")
             },
             {
-                path: "/administrator/list", // http://localhost:5173/administrator/list
+                path: "administrator/list", // http://localhost:5173/admin/administrator/list
                 component: () => import("@/views/admin/administrator/list.vue")
             },
+            //类别管理
             {
-                path: "/category/list", // http://localhost:5173/category/list
+                path: "category/list", // http://localhost:5173/admin/category/list
                 component: () => import("@/views/admin/category/list.vue")
             },
+            //文章管理
+            {
+                path: "article/add", // http://localhost:5173/admin/article/add
+                component: () => import("@/views/admin/article/add.vue")
+            },
+            {
+                path: "article/edit", // http://localhost:5173/admin/article/edit
+                component: () => import("@/views/admin/article/edit.vue")
+            },
+            {
+                path: "article/list", // http://localhost:5173/admin/article/list
+                component: () => import("@/views/admin/article/list.vue")
+            },
+            //导航管理
+            {
+                path: "nav/list", // http://localhost:5173/admin/nav/list
+                component: () => import("@/views/admin/nav/list.vue")
+            },
         ]
-    },]
+    }
+]
 
 const router = createRouter({
     //使用url的#符号之后的部分模拟url路径的变化,因为不会触发页面刷新,所以不需要服务端支持
