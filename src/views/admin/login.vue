@@ -33,7 +33,7 @@ const login = () => {
     if (!valid) {
       return
     }
-    axios.post('http://localhost:80/api/adm/login', data).then(res => {
+    axios.post('http://localhost:8008/api/adm/login', data).then(res => {
       /*console.log(res.data)*/
       if (!res.data.status) {
         ElMessage.error(res.data.msg)
